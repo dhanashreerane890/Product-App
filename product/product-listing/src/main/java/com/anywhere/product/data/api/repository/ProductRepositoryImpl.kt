@@ -1,0 +1,52 @@
+package com.anywhere.product.data.api.repository
+
+import com.anywhere.core.data.dao.ProductDao
+import com.anywhere.product.data.api.mappers.toDomainList
+import com.anywhere.product.data.api.mappers.toEntityList
+import com.anywhere.product.data.api.service.ProductApiService
+import com.anywhere.product.domain.model.Product
+import com.anywhere.product.domain.repository.ProductRepository
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
+
+class ProductRepositoryImpl(
+    private val productApiService: ProductApiService,
+    private val productDao: ProductDao,
+    private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
+) : ProductRepository {
+
+    override suspend fun fetchProducts(): Result<List<Product>> {
+        return withContext(coroutineDispatcher) {
+            val response = productApiService.getProducts()
+            if (response.isSuccessful) {
+                Result.success(response.body()?.products?.toDomainList().orEmpty())
+            } else {
+                Result.failure(Exception("Error: ${response.code()} ${response.message()}"))
+            }
+        }
+    }
+
+
+    override suspend fun clearProducts(products: List<Product>) {
+        withContext(coroutineDispatcher) {
+            productDao.insertProducts(products.toEntityList())
+        }
+    }
+
+    override suspend fun insertProducts(products: List<Product>) {
+        withContext(coroutineDispatcher) {
+            productDao.insertProducts(products.toEntityList())
+        }
+    }
+
+    override suspend fun getProductsFromDb(): Flow<List<Product>> {
+        return withContext(coroutineDispatcher) {
+            productDao.getAllProducts().map { entities ->
+                entities.toDomainList()
+            }
+        }
+    }
+}
