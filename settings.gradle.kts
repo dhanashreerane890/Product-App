@@ -1,21 +1,8 @@
-pluginManagement {
-    repositories {
-        google {
-            content {
-                includeGroupByRegex("com\\.android.*")
-                includeGroupByRegex("com\\.google.*")
-                includeGroupByRegex("androidx.*")
-            }
-        }
-        mavenCentral()
-        gradlePluginPortal()
-    }
-}
+// removed pluginManagement block for brevity
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
-        mavenCentral()
         gradlePluginPortal()
     }
 }
@@ -26,6 +13,5 @@ include(":app")
 include(":network")
 include(":product")
 include(":product:product-listing")
-include(":product:product-search")
 include(":design-system")
 include(":core")
