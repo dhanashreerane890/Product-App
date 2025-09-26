@@ -50,15 +50,20 @@ fun ProductApiResponse.Product.toDomain(): Product {
     )
 }
 
-@JvmName("toDomainListFromApi")
-fun List<ProductApiResponse.Product>.toDomainList(): List<Product> {
+fun List<ProductApiResponse.Product>.fromAPItoDomainList(): List<Product> {
     return this.map {
-        it.toDomain()
+        Product(
+            id = it.id,
+            title = it.title,
+            description = it.description,
+            price = it.price,
+            thumbnail = it.thumbnail,
+            category = it.category
+        )
     }
 }
 
-@JvmName("toDomainListFromEntities")
-fun List<ProductEntity>.toDomainList(): List<Product> {
+fun List<ProductEntity>.fromDBtoDomainList(): List<Product> {
     return this.map {
         it.toDomain()
     }

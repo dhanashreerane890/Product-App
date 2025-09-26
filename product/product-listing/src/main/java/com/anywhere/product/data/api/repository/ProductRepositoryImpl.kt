@@ -1,7 +1,8 @@
 package com.anywhere.product.data.api.repository
 
 import com.anywhere.core.data.dao.ProductDao
-import com.anywhere.product.data.api.mappers.toDomainList
+import com.anywhere.product.data.api.mappers.fromAPItoDomainList
+import com.anywhere.product.data.api.mappers.fromDBtoDomainList
 import com.anywhere.product.data.api.mappers.toEntityList
 import com.anywhere.product.data.api.service.ProductApiService
 import com.anywhere.product.domain.model.Product
@@ -22,7 +23,7 @@ class ProductRepositoryImpl(
         return withContext(coroutineDispatcher) {
             val response = productApiService.getProducts()
             if (response.isSuccessful) {
-                Result.success(response.body()?.products?.toDomainList().orEmpty())
+                Result.success(response.body()?.products?.fromAPItoDomainList().orEmpty())
             } else {
                 Result.failure(Exception("Error: ${response.code()} ${response.message()}"))
             }
@@ -45,7 +46,7 @@ class ProductRepositoryImpl(
     override suspend fun getProductsFromDb(): Flow<List<Product>> {
         return withContext(coroutineDispatcher) {
             productDao.getAllProducts().map { entities ->
-                entities.toDomainList()
+                entities.fromDBtoDomainList()
             }
         }
     }
