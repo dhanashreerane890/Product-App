@@ -14,6 +14,9 @@ dependencies {
     implementation(projects.designSystem)
     implementation(projects.core)
 
+    implementation(projects.logger.api)
+    implementation(projects.logger.impl)
+
     implementation(libs.retrofit)
 
 }
