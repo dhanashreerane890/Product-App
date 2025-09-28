@@ -1,6 +1,7 @@
 package com.anywhere.product.data.api.repository
 
 import com.anywhere.core.data.dao.ProductDao
+import com.anywhere.logger.api.Logger
 import com.anywhere.product.data.api.mappers.fromAPItoDomainList
 import com.anywhere.product.data.api.mappers.fromDBtoDomainList
 import com.anywhere.product.data.api.mappers.toEntityList
@@ -16,7 +17,8 @@ import kotlinx.coroutines.withContext
 class ProductRepositoryImpl(
     private val productApiService: ProductApiService,
     private val productDao: ProductDao,
-    private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
+    private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO,
+    private val logger: Logger
 ) : ProductRepository {
 
     override suspend fun fetchProducts(): Result<List<Product>> {
@@ -25,6 +27,7 @@ class ProductRepositoryImpl(
             if (response.isSuccessful) {
                 Result.success(response.body()?.products?.fromAPItoDomainList().orEmpty())
             } else {
+                logger.error("Error: ${response.code()} ${response.message()}")
                 Result.failure(Exception("Error: ${response.code()} ${response.message()}"))
             }
         }
@@ -33,18 +36,21 @@ class ProductRepositoryImpl(
 
     override suspend fun clearProducts(products: List<Product>) {
         withContext(coroutineDispatcher) {
+            logger.debug("Clearing products from database")
             productDao.insertProducts(products.toEntityList())
         }
     }
 
     override suspend fun insertProducts(products: List<Product>) {
         withContext(coroutineDispatcher) {
+            logger.debug("Inserting products into database")
             productDao.insertProducts(products.toEntityList())
         }
     }
 
     override suspend fun getProductsFromDb(): Flow<List<Product>> {
         return withContext(coroutineDispatcher) {
+            logger.debug("Fetching products from database")
             productDao.getAllProducts().map { entities ->
                 entities.fromDBtoDomainList()
             }
