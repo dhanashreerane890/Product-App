@@ -10,7 +10,7 @@ gradlePlugin {
             id = "library.plugin"
             implementationClass = "com.anywhere.convention.plugins.LibraryPlugin"
         }
-        create("applicationPlugin"){
+        create("applicationPlugin") {
             id = "application.plugin"
             implementationClass = "com.anywhere.convention.plugins.ApplicationPlugin"
         }

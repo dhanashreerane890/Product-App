@@ -6,7 +6,6 @@ import com.anywhere.product.domain.repository.ProductRepository
 class ProductListingUseCase(
     private val productRepository: ProductRepository
 ) {
-
     suspend fun fetchProductsFromApi(): List<Product> {
         val productList = productRepository.fetchProducts().getOrDefault(emptyList())
         if (productList.isNotEmpty()) {

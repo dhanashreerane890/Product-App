@@ -13,7 +13,6 @@ import com.anywhere.product.data.api.repository.ProductRepositoryImpl
 import com.anywhere.product.data.api.service.ProductApiService
 import com.anywhere.product.domain.usecase.FetchProductsUseCase
 import com.anywhere.product.domain.usecase.ProductListingUseCase
-import kotlin.math.log
 
 class ProductViewModelFactory() : ViewModelProvider.Factory {
 

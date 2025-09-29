@@ -5,7 +5,7 @@ data class ProductApiResponse(
     val total: Int,
     val skip: Int,
     val limit: Int
-){
+) {
     data class Product(
         val id: Int,
         val title: String,

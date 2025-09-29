@@ -16,12 +16,24 @@ class CommonDependencyPlugin : Plugin<Project> {
                     val versionCatalog = target.the<VersionCatalogsExtension>().named("libs")
 
                     // coroutines
-                    add("implementation", versionCatalog.findLibrary("kotlinx-coroutines-core").get())
-                    add("implementation", versionCatalog.findLibrary("kotlinx-coroutines-android").get())
+                    add(
+                        "implementation",
+                        versionCatalog.findLibrary("kotlinx-coroutines-core").get()
+                    )
+                    add(
+                        "implementation",
+                        versionCatalog.findLibrary("kotlinx-coroutines-android").get()
+                    )
 
                     // androidx lifecycle
-                    add("implementation",versionCatalog.findLibrary("androidx-lifecycle-viewmodel-ktx").get())
-                    add("implementation",versionCatalog.findLibrary("androidx-lifecycle-runtime-ktx").get())
+                    add(
+                        "implementation",
+                        versionCatalog.findLibrary("androidx-lifecycle-viewmodel-ktx").get()
+                    )
+                    add(
+                        "implementation",
+                        versionCatalog.findLibrary("androidx-lifecycle-runtime-ktx").get()
+                    )
 
                 }
             }

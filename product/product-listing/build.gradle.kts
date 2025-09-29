@@ -13,7 +13,6 @@ dependencies {
     implementation(projects.network)
     implementation(projects.designSystem)
     implementation(projects.core)
-
     implementation(projects.logger.api)
     implementation(projects.logger.impl)
 

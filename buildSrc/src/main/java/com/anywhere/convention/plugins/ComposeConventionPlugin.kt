@@ -37,8 +37,7 @@ class ComposeConventionPlugin : Plugin<Project> {
                             versionCatalog.findLibrary("androidx-activity-compose").get()
                         )
                         add(
-                            "implementation",
-                            versionCatalog.findLibrary("androidx-ui").get()
+                            "implementation", versionCatalog.findLibrary("androidx-ui").get()
                         )
                         add(
                             "implementation",
@@ -53,8 +52,7 @@ class ComposeConventionPlugin : Plugin<Project> {
                             versionCatalog.findLibrary("androidx-ui-tooling-preview").get()
                         )
                         add(
-                            "implementation",
-                            versionCatalog.findLibrary("androidx-material3").get()
+                            "implementation", versionCatalog.findLibrary("androidx-material3").get()
                         )
                         add(
                             "implementation",
@@ -65,8 +63,7 @@ class ComposeConventionPlugin : Plugin<Project> {
                             versionCatalog.findLibrary("androidx-lifecycle-viewmodel-compose").get()
                         )
                         add(
-                            "implementation",
-                            versionCatalog.findLibrary("coil-compose").get()
+                            "implementation", versionCatalog.findLibrary("coil-compose").get()
                         )
                     }
                 }
